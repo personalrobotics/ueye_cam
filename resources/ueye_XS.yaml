@@ -1,0 +1,20 @@
+image_width: 1280
+image_height: 720
+camera_name: ueye_XS
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [1297.248278, 0, 619.786152, 0, 1302.22238, 366.187157, 0, 0, 1]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.181049, -0.53004, -0.001447, -0.000317, 0]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [1312.975464, 0, 618.30824, 0, 0, 1320.412231, 365.050993, 0, 0, 0, 1, 0]
