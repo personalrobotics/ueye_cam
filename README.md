@@ -1,3 +1,15 @@
+**Note to PersonalRobotics Users w/ ADA**
+
+To use this node with ADA, do the following:
+
+1. Make sure the ueye [USB driver](https://en.ids-imaging.com/download-ueye.html#4.61_Linux) is installed
+2. Make sure that you can run `ueyecameramanager` and connect to the camera using the USB driver. Note that the camera requires a lot of bandwidth so it shouldn't be plugged into a hub.
+3. Clone this repository into your catkin `src` directory.
+4. `catkin_make` and source `devel/setup.bash`
+5. Move `./resources/ueye_XS.yaml` camera calibration file into `~/.ros/camera_info/ueye_XS.yaml`
+6. Launch `roslaunch ueye_cam xs_bayer_proc` to get a raw image stream through ROS
+7. If you already have the *Structure Sensor* running, you can launch `depth_register.launch` instead, which will automatically run the `ueye_camera` and produce registered depth images and point clouds~
+
 **DISCLAMER:**
 
 This project was created within an academic research setting, and thus should
