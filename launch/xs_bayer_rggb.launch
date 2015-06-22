@@ -58,4 +58,11 @@
     <param name="flip_upd" type="bool" value="False" />
     <param name="flip_lr"  type="bool" value="False" />
   </node>
+
+  <node pkg="nodelet" type="nodelet" name="debayer"
+      args="load image_proc/debayer $(arg nodelet_manager_name)">
+    <remap from="image_raw" to="/$(arg camera_name)/image_raw" />
+    <remap from="image_mono" to="/$(arg camera_name)/image_mono" />
+    <remap from="image_color" to="/$(arg camera_name)/image_color" />
+  </node>
 </launch>

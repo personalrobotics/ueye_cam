@@ -1,0 +1,29 @@
+<launch>
+  <node pkg="tf" type="static_transform_publisher" name="transform_publisher" args="0.03 -0.01 0 0 0 0 1 /camera_depth_optical_frame /ueye_XS_rgb_optical_frame 16"/>
+  <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager"/>
+
+    <!-- Convert it into a point cloud -->
+    <node pkg="nodelet" type="nodelet" name="registrar"
+        args="load depth_image_proc/register standalone_nodelet">
+        <remap from="rgb/camera_info" to="/ueye_XS/camera_info"/>
+        <remap from="depth/image_rect" to="/camera/depth/image"/>
+        <remap from="depth/camera_info" to="/camera/depth/camera_info"/>
+
+
+        <remap from="depth_registered/camera_info" to="/registered_camera/camera_info"/>
+        <remap from="depth_registered/image_rect" to="/registered_camera/image_rect"/>
+
+        <param name="queue_size" value="25"/>
+    </node>
+
+    <!-- Convert it into a point cloud -->
+    <node pkg="nodelet" type="nodelet" name="cloudify"
+        args="load depth_image_proc/point_cloud_xyzrgb standalone_nodelet ">
+    
+        <remap from="depth_registered/image_rect" to="/registered_camera/image_rect"/>
+        <remap from="rgb/image_rect_color" to="/ueye_XS/image_color"/>
+        <remap from="rgb/camera_info" to="/ueye_XS/camera_info"/>
+        <param name="queue_size" value="20"/>
+    </node>
+
+</launch> 

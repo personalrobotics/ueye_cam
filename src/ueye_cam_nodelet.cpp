@@ -852,7 +852,7 @@ INT UEyeCamNodelet::queryCamParams() {
 
   // Populate ROS image message
   // NOTE: the non-ROS UEye parameters and buffers have been updated by setColorMode, setResolution(), and setSubsampling()
-  ros_image_.header.frame_id = "/" + frame_name_;
+  ros_image_.header.frame_id = frame_name_;
   ros_image_.height = cam_params_.image_height /
       (cam_params_.sensor_scaling * cam_params_.subsampling * cam_params_.binning);
   ros_image_.width = cam_params_.image_width /
@@ -902,7 +902,7 @@ INT UEyeCamNodelet::disconnectCam() {
 bool UEyeCamNodelet::setCamInfo(sensor_msgs::SetCameraInfo::Request& req,
     sensor_msgs::SetCameraInfo::Response& rsp) {
   ros_cam_info_ = req.camera_info;
-  ros_cam_info_.header.frame_id = "/" + frame_name_;
+  ros_cam_info_.header.frame_id = frame_name_;
   rsp.success = saveIntrinsicsFile();
   rsp.status_message = (rsp.success) ? "successfully wrote to file" : "failed to write to file";
   return true;
@@ -1078,7 +1078,7 @@ void UEyeCamNodelet::loadIntrinsicsFile() {
   if (camera_calibration_parsers::readCalibration(cam_intr_filename_, cam_name_, ros_cam_info_)) {
     NODELET_DEBUG_STREAM("Loaded intrinsics parameters for UEye camera " << cam_name_);
   }
-  ros_cam_info_.header.frame_id = "/" + frame_name_;
+  ros_cam_info_.header.frame_id = frame_name_;
 };
 
 
